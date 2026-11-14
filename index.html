@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11152b">
+  <title>Moonbase: Every Choice Costs</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f5f4ff;
+      --muted: #c3c4db;
+      --panel: #202541;
+      --panel2: #292f50;
+      --line: #444b70;
+      --gold: #ffd166;
+      --mint: #78e2bd;
+      --pink: #ff91ac;
+      --blue: #a7c7ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background: radial-gradient(ellipse at 75% 0%, #303b6b 0, transparent 38rem), #11152b;
+      font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    button, select { font: inherit; }
+    button:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+    .wrap { width: min(1050px, 92vw); margin: auto; padding: 28px 0 42px; }
+    header { margin-bottom: 20px; }
+    .eyebrow { color: var(--mint); font-weight: 800; letter-spacing: .13em; text-transform: uppercase; font-size: .78rem; }
+    h1 { margin: 5px 0; font-size: clamp(2rem, 6vw, 3.3rem); line-height: 1.05; }
+    h2 { margin: 0 0 12px; font-size: 1.25rem; }
+    p { margin: 8px 0; }
+    .intro { color: var(--muted); max-width: 720px; }
+    .panel { background: linear-gradient(145deg, var(--panel), #1b203a); border: 1px solid var(--line); border-radius: 18px; padding: 20px; margin: 16px 0; box-shadow: 0 12px 30px #080a1855; }
+    .setup-grid, .stats, .choices, .lower-grid { display: grid; gap: 12px; }
+    .setup-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); align-items: end; }
+    label { display: block; color: var(--muted); font-weight: 700; margin-bottom: 5px; }
+    select { width: 100%; padding: 11px; color: var(--ink); background: var(--panel2); border: 1px solid var(--line); border-radius: 10px; }
+    .stats { grid-template-columns: repeat(4, 1fr); }
+    .stat { background: var(--panel2); border: 1px solid var(--line); padding: 13px; border-radius: 13px; min-width: 0; }
+    .stat-name { color: var(--muted); font-size: .85rem; }
+    .stat-value { display: block; font-size: 1.55rem; font-weight: 850; }
+    .bar { height: 7px; background: #14182b; border-radius: 8px; overflow: hidden; margin-top: 7px; }
+    .fill { height: 100%; background: var(--mint); width: 50%; transition: width .25s ease; }
+    .fill.warn { background: var(--gold); }
+    .fill.danger { background: var(--pink); }
+    .dayline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 99px; background: #343c66; color: var(--blue); font-size: .85rem; font-weight: 750; }
+    .event { border-left: 4px solid var(--gold); padding: 8px 12px; background: #343047; border-radius: 7px; }
+    .choices { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+    .choice { text-align: left; color: var(--ink); cursor: pointer; background: var(--panel2); border: 1px solid var(--line); border-radius: 14px; padding: 15px; min-height: 132px; transition: transform .12s, border-color .12s; }
+    .choice:hover:not(:disabled) { transform: translateY(-2px); border-color: var(--mint); }
+    .choice:disabled { opacity: .48; cursor: not-allowed; }
+    .choice strong { display: block; font-size: 1.03rem; margin-bottom: 5px; }
+    .cost { display: block; margin-top: 9px; color: var(--gold); font-size: .88rem; }
+    .action-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .primary, .secondary { border: 0; border-radius: 10px; padding: 11px 16px; font-weight: 800; cursor: pointer; }
+    .primary { background: var(--mint); color: #10251e; }
+    .secondary { color: var(--ink); background: #3a4164; }
+    .primary:disabled { opacity: .5; cursor: not-allowed; }
+    .lower-grid { grid-template-columns: 1.2fr .8fr; }
+    .log { max-height: 220px; overflow: auto; padding-left: 20px; color: var(--muted); }
+    .log li { margin: 7px 0; }
+    .fact { color: var(--muted); }
+    .small { font-size: .88rem; color: var(--muted); }
+    details summary { cursor: pointer; font-weight: 800; }
+    details p { color: var(--muted); }
+    a { color: var(--blue); }
+    .result { font-size: 1.1rem; font-weight: 800; }
+    .hidden { display: none; }
+    @media (max-width: 650px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .lower-grid { grid-template-columns: 1fr; }
+      .panel { padding: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <div class="eyebrow">A lunar outpost decision game · ages 7–12</div>
+      <h1>Moonbase: Every Choice Costs</h1>
+      <p class="intro">Lead a six-day mission. Keep the crew supplied, manage power, build a “moon dirt blanket” for shelter, and decide when science is worth the risk.</p>
+    </header>
+
+    <section class="panel" aria-labelledby="setup-title">
+      <h2 id="setup-title">Choose your mission</h2>
+      <div class="setup-grid">
+        <div>
+          <label for="site">Outpost site</label>
+          <select id="site">
+            <option value="ridge">Sunlit ridge — more solar power, less access to shadowed ice</option>
+            <option value="crater">Shadowed crater — less sunlight, possible access to ice</option>
+          </select>
+        </div>
+        <div>
+          <label for="sun">Sun’s activity</label>
+          <select id="sun">
+            <option value="max">Solar maximum — storm warnings are more likely</option>
+            <option value="min">Solar minimum — fewer storms, more cosmic-ray background</option>
+          </select>
+        </div>
+        <button class="primary" id="start">Start mission</button>
+      </div>
+      <p class="small">Choose a site and a Sun setting, then make one plan each day. The game’s resource numbers are made-up teaching units—not real engineering limits or radiation doses.</p>
+    </section>
+
+    <section id="game" class="hidden" aria-live="polite">
+      <div class="panel">
+        <div class="dayline"><h2 id="day-title">Mission day 1 of 6</h2><span class="badge" id="mission-badge">Mission control</span></div>
+        <p id="conditions" class="small"></p>
+        <div class="stats" aria-label="Outpost status">
+          <div class="stat"><span class="stat-name">Power</span><strong class="stat-value" id="power">—</strong><div class="bar"><div class="fill" id="power-bar"></div></div></div>
+          <div class="stat"><span class="stat-name">Crew supplies</span><strong class="stat-value" id="supplies">—</strong><div class="bar"><div class="fill" id="supplies-bar"></div></div></div>
+          <div class="stat"><span class="stat-name">Shelter shielding</span><strong class="stat-value" id="shield">—</strong><div class="bar"><div class="fill" id="shield-bar"></div></div></div>
+          <div class="stat"><span class="stat-name">Radiation risk*</span><strong class="stat-value" id="risk">—</strong><div class="bar"><div class="fill" id="risk-bar"></div></div></div>
+        </div>
+        <p class="small">*Risk is a simple game meter, not a measured dose or a prediction of health effects.</p>
+      </div>
+
+      <div class="panel">
+        <div id="event" class="event"></div>
+        <h2 style="margin-top:16px">What will your crew do today?</h2>
+        <div class="choices" id="choices"></div>
+        <div class="action-row"><button class="primary" id="resolve" disabled>Use this plan</button><button class="secondary" id="reset">Restart</button></div>
+        <p class="small" id="choice-help">Pick one plan. Solar power and basic life support are accounted for when you resolve the day.</p>
+      </div>
+
+      <div class="lower-grid">
+        <section class="panel"><h2>Mission log</h2><ul class="log" id="log" aria-live="polite"></ul></section>
+        <section class="panel"><h2>Science note</h2><p class="fact" id="fact"></p></section>
+      </div>
+    </section>
+
+    <section class="panel">
+      <details>
+        <summary>What is based on NASA information?</summary>
+        <p>The game uses NASA’s descriptions of lunar power challenges, radiation protection, south-pole conditions, and Moon-to-Earth communication delay. Those are facts and concepts—not live data feeds. The gameplay numbers and outcomes are simplified for play.</p>
+        <p><strong>Sources:</strong></p>
+        <ul class="small">
+          <li><a href="https://www.nasa.gov/feature/living-and-working-on-the-moon/" target="_blank" rel="noreferrer">NASA — Living and Working on the Moon</a></li>
+          <li><a href="https://www.nasa.gov/reference/moonbase-about/" target="_blank" rel="noreferrer">NASA — Moon Base</a></li>
+          <li>NASA — Lunar Living: NASA’s Artemis Base Camp Concept (2020)</li>
+          <li>NASA — How NASA Will Protect Astronauts From Space Radiation at the Moon</li>
+          <li><a href="https://ntrs.nasa.gov/citations/20220007070" target="_blank" rel="noreferrer">Ryder &amp; Campola — The Lunar Radiation Environment (2022)</a></li>
+          <li><a href="https://api.nasa.gov/" target="_blank" rel="noreferrer">NASA DONKI API</a> and <a href="https://osdr.nasa.gov/" target="_blank" rel="noreferrer">NASA Open Science Data Repository</a> are not connected in this prototype.</li>
+        </ul>
+        <p class="small">NASA describes early lunar power systems as needing to handle long periods without sunlight, and explains that regolith (loose lunar soil) can help shield a shelter. Radiation risk varies; this game does not calculate real dose. A one-way Moon communication delay of about 1.3 seconds is a light-speed calculation, not a quoted NASA measurement.</p>
+      </details>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const $ = id => document.getElementById(id);
+      const facts = [
+        "The Moon has no atmosphere like Earth’s to burn up most small space rocks. Lunar dust and terrain also make outdoor work challenging.",
+        "Regolith means loose lunar soil and dust. A layer of it can help protect a shelter from radiation—but moving it takes equipment and effort.",
+        "Solar energetic particles can arrive as a sudden burst. Galactic cosmic rays are more like a steady drizzle from beyond our Solar System.",
+        "NASA’s south-pole plans account for darkness and extreme cold. No lunar location gets sunlight all the time.",
+        "The Moon is about 240,000 miles from Earth. Light-speed math gives roughly 1.3 seconds for a one-way signal; a reply takes longer.",
+        "Lunar ice could be useful to explorers, but finding and using it takes technology. In this game, growing supplies is a simplified stand-in—not a claim about crop yields."
+      ];
+      const state = {};
+      let selectedAction = null;
+
+      function startGame() {
+        Object.assign(state, { day: 1, power: 8, supplies: 10, shield: 1, risk: 0, science: 0, site: $("site").value, sun: $("sun").value, arrayRepairs: 0, log: [], ended: false });
+        $("game").classList.remove("hidden");
+        $("log").innerHTML = "";
+        $("fact").textContent = facts[Math.floor(Math.random() * facts.length)];
+        addLog("Mission started. Your resource meters use illustrative game units.");
+        render();
+      }
+
+      function conditions() {
+        const night = state.day === 4;
+        const stormChance = state.sun === "max" ? 0.48 : 0.18;
+        const storm = !night && Math.random() < stormChance;
+        const solar = night ? 0 : (state.site === "ridge" ? 3 : 1) + state.arrayRepairs;
+        return { night, storm, solar };
+      }
+
+      let today = null;
+      const actions = [
+        { id: "shield", title: "Pile on moon dirt", text: "Add a protective layer to the shelter.", cost: "Costs 2 power + 1 supply · shielding +2", power: 2, supplies: -1, shield: 2 },
+        { id: "garden", title: "Grow crew supplies", text: "Spend energy and crew time on the garden.", cost: "Costs 2 power · supplies +2", power: 2, supplies: 2 },
+        { id: "science", title: "Go explore", text: "Collect science outside the shelter.", cost: "Costs 1 power + 1 supply · science +2 · risk may rise", power: 1, supplies: -1, science: 2, walk: true },
+        { id: "repair", title: "Tune the solar array", text: "Do maintenance now to get more power on later sunny days.", cost: "Costs 2 power + 1 supply · future sunlight +2", power: 2, supplies: -1, repair: true },
+        { id: "shelter", title: "Stay inside and monitor", text: "Skip outdoor science and keep the crew sheltered.", cost: "Costs 1 extra power · no science today", power: 1, shelter: true }
+      ];
+
+      function addLog(message) {
+        state.log.unshift(message);
+        const item = document.createElement("li");
+        item.textContent = message;
+        $("log").prepend(item);
+      }
+
+      function render() {
+        if (state.ended) return;
+        today = conditions();
+        selectedAction = null;
+        $("resolve").disabled = true;
+        $("day-title").textContent = `Mission day ${state.day} of 6`;
+        $("mission-badge").textContent = `${state.site === "ridge" ? "Sunlit ridge" : "Shadowed crater"} · ${state.sun === "max" ? "Solar maximum" : "Solar minimum"}`;
+        $("conditions").textContent = today.night ? "Lunar night: no solar power reaches the outpost today." : `Solar energy today: ${today.solar} game units.`;
+        $("event").textContent = today.night ? "🌑 Night shift! Your outpost must rely on stored power." : today.storm ? "☀️ Storm warning! Space-weather risk is up. The crew can stay inside or choose a science walk." : "📡 Mission control is listening. Choose how to spend today’s energy and crew time.";
+        $("power").textContent = state.power;
+        $("supplies").textContent = state.supplies;
+        $("shield").textContent = state.shield;
+        $("risk").textContent = state.risk;
+        bar("power-bar", state.power, 12, false);
+        bar("supplies-bar", state.supplies, 12, false);
+        bar("shield-bar", state.shield, 8, false);
+        bar("risk-bar", state.risk, 8, true);
+        const box = $("choices");
+        box.innerHTML = "";
+        actions.forEach(action => {
+          const button = document.createElement("button");
+          button.className = "choice";
+          button.type = "button";
+          button.dataset.action = action.id;
+          button.innerHTML = `<strong>${action.title}</strong><span>${action.text}</span><span class="cost">${action.cost}</span>`;
+          button.addEventListener("click", () => {
+            selectedAction = action;
+            document.querySelectorAll(".choice").forEach(el => el.style.borderColor = "");
+            button.style.borderColor = "var(--mint)";
+            $("resolve").disabled = false;
+          });
+          box.appendChild(button);
+        });
+      }
+
+      function bar(id, value, max, reverse) {
+        const fill = $(id);
+        const pct = Math.max(0, Math.min(100, value / max * 100));
+        fill.style.width = pct + "%";
+        fill.classList.toggle("danger", reverse ? value >= 5 : value <= 2);
+        fill.classList.toggle("warn", reverse ? value >= 3 && value < 5 : value > 2 && value <= 4);
+      }
+
+      function finish(success, message) {
+        state.ended = true;
+        $("event").textContent = success ? "🏁 Mission complete!" : "🛑 Mission ended.";
+        $("choices").innerHTML = `<p class="result">${message}</p>`;
+        $("resolve").disabled = true;
+        $("day-title").textContent = success ? "You made it home!" : "The outpost could not continue.";
+        $("conditions").textContent = `Science collected: ${state.science}. Try a new plan and see what changes.`;
+      }
+
+      function resolveDay() {
+        if (!selectedAction || state.ended) return;
+        const a = selectedAction;
+        const availablePower = state.power + today.solar;
+        const powerCost = 2 + a.power;
+        const newSupplies = state.supplies - 1 + (a.supplies || 0);
+        if (availablePower < powerCost) {
+          finish(false, "Not enough stored and solar power for life support plus that plan. A real mission needs backup plans.");
+          return;
+        }
+        if (newSupplies < 0) {
+          finish(false, "The crew ran out of supplies. Next time, make room for a supply-growing day.");
+          return;
+        }
+        state.power = Math.min(12, availablePower - powerCost);
+        state.supplies = Math.min(12, newSupplies);
+        if (a.shield) state.shield = Math.min(8, state.shield + a.shield);
+        if (a.science) state.science += a.science;
+        if (a.repair && state.arrayRepairs < 2) state.arrayRepairs++;
+        if (a.walk) state.risk += today.storm ? (state.shield >= 3 ? 1 : 3) : 1;
+        if (a.shelter && today.storm) addLog("You stayed inside during the storm warning. No outdoor science today.");
+        else if (a.shelter) addLog("The crew stayed inside and monitored the outpost.");
+        if (a.walk && today.storm && state.shield >= 3) addLog("Your shelter helped protect the crew during the storm warning.");
+        else if (a.walk && today.storm) addLog("The crew went outside during a storm warning; game risk increased.");
+        addLog(`Day ${state.day}: ${a.title}. Power now ${state.power}; supplies now ${state.supplies}.`);
+        if (state.risk >= 8) {
+          finish(false, "The game’s radiation-risk meter reached its limit. A real radiation dose is more complex than this meter.");
+          return;
+        }
+        if (state.day === 6) {
+          const success = state.supplies > 0 && state.power >= 0;
+          finish(success, success ? (state.science >= 4 ? "You survived and gathered useful science. Great mission planning!" : "You survived—but gathered little science. Could you balance safety and exploration differently?") : "The outpost ran out of resources.");
+          return;
+        }
+        state.day++;
+        $("fact").textContent = facts[Math.floor(Math.random() * facts.length)];
+        render();
+      }
+
+      $("start").addEventListener("click", startGame);
+      $("resolve").addEventListener("click", resolveDay);
+      $("reset").addEventListener("click", startGame);
+    })();
+  </script>
+</body>
+</html>
