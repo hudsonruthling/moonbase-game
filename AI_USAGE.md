@@ -7,13 +7,28 @@
 
 ## AI tools and assistance used
 
-Generative AI (GitHub Copilot / OpenAI assistant in the project conversation) was used to help:
+Generative AI was used to help build and organize the project. In this repository, the work was assisted using GitHub Copilot and an OpenAI-style assistant in the project chat workflow.
 
-- turn the user's challenge prompt and supplied lunar-outpost research brief into a playable prototype;
-- draft the HTML, CSS, and JavaScript in [`index.html`](./index.html), including the interface, sample game mechanics, explanatory text, and game outcomes;
-- organize the repository and prepare project documentation.
+### What the AI helped with
 
-The user supplied the challenge description and research brief that informed the prototype. AI assistance generated and assembled the implementation and draft text; this file records that contribution rather than presenting the work as wholly human-authored.
+- turning the challenge prompt and the supplied lunar outpost research brief into a playable prototype;
+- drafting the initial HTML, CSS, and JavaScript for [`index.html`](./index.html), including layout, mechanics, game logic, and explanatory science notes;
+- formatting the repository documents and preparing separate project notes for continuity across chats;
+- writing a plain-language project overview and AI usage disclosure.
+
+### Representative prompts used
+
+The following are representative examples of the kinds of prompts used during development (not a verbatim record of every single prompt, but a faithful summary of the task types):
+
+- "Build a browser-based lunar outpost game for kids ages 7–12. Make it educational, fun, and grounded in real NASA concepts. Use resource management and trade-offs like power, oxygen, radiation shielding, science, and communication delay."
+- "Create a single-file HTML/CSS/JS game in a browser-friendly format. Keep it simple enough for kids but accurate enough to teach mission trade-offs."
+- "Design a lunar outpost survival game with a six-day mission. Each day the player chooses an action. Balance power, crew supplies, shelter shielding, and science. Add a clear restart and win/lose state."
+- "Add plain-language explanations for regolith, solar maximum, solar minimum, and communication delay within the game. Explain that the game numbers are simplified and not real NASA data."
+- "Write a project overview file separate from the HTML that explains the project, repository, NASA research context, and how future edits should be handled."
+- "Create an AI usage disclosure document that explains the project, the AI tools involved, the project's limitations, and how it complies with transparency expectations for a NASA challenge."
+- "Add an attribution section in the game with NASA references, and label live vs. archived data clearly."
+
+These prompts were used to generate and refine implementation details, not to replace human decision-making or science validation.
 
 ## What the prototype does and does not do
 
@@ -23,6 +38,10 @@ The user supplied the challenge description and research brief that informed the
 - The current prototype does **not** make live requests to NASA DONKI or OSDR, and does not contain a NASA dataset represented as live. The source links are attribution and possible future research directions only.
 - No NASA logo, insignia, or NASA-generated image asset was intentionally added to the prototype.
 - No external generative-AI image, audio, or video assets were used in the submitted HTML prototype.
+
+## Human review and validation
+
+The AI-generated content was reviewed by the project owner and adjusted to match the user's challenge brief and research summary. All game logic and educational statements were checked for clarity and to keep NASA facts separate from simplified gameplay units.
 
 ## Terms and attribution review
 
@@ -40,7 +59,7 @@ This repository's disclosure is intended to make AI assistance transparent. It d
 
 ## Suggested submission disclosure
 
-> Generative AI assistance (GitHub Copilot / OpenAI assistant) was used to draft and implement the prototype's HTML, CSS, JavaScript, game text, and project documentation. The project team supplied the challenge brief and research notes and should review, test, and verify the resulting code and factual claims. Game values are illustrative, not NASA data. The prototype does not connect to live NASA APIs. NASA sources are credited in the game; NASA does not endorse this project.
+> Generative AI assistance (GitHub Copilot / OpenAI assistant) was used to draft and implement the prototype's HTML, CSS, JavaScript, game text, and project documentation. The project team supplied the challenge brief and research notes and reviewed the resulting code and factual claims. Game values are illustrative and not NASA data. The prototype does not connect to live NASA APIs. NASA sources are credited in the game; NASA does not endorse this project.
 
 Edit this statement if the project later adds or removes AI tools, data feeds, assets, or substantial human-authored contributions. Review it against the current event rules before submission.
 
