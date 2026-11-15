@@ -1,11 +1,5 @@
 # Moon Base Trade-Offs
 
-Local prototype repo for lunar outpost game updates.
+## [NASA JUDGE INSTRUCTIONS](NASA%20JUDGE%20INSTRUCTIONS.md)
 
-## How to Play Our Game
-
-See the [How to Play Our Game guide](HOW_TO_PLAY.md) for NASA judges and reviewers. It explains how to download and open the game, how to play, and the current GitHub Pages status.
-
-## Game file
-
-The game is in [`Main Game HTML`](Main%20Game%20HTML). To run it, download the file and follow the guide above. Viewing the file in GitHub shows its source code; GitHub does not run the game from that source view.
+To play, open the **LUNAR OUTPOST FINAL GAME** file, download it, and open it in a web browser. GitHub's preview shows the file's code; it does not run the game.
