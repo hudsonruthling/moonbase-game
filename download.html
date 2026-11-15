@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Download Moon Base Trade-Offs</title>
+  <style>
+    body{max-width:680px;margin:3rem auto;padding:0 1rem;background:#10131f;color:#e8ecf5;font:16px/1.6 ui-monospace,Menlo,Consolas,monospace}
+    main{padding:1.5rem;background:#1b2033;border:1px solid #48566d;border-radius:6px}
+    h1{color:#f2a23a;font-size:1.25rem}
+    a,button{display:inline-block;margin:.5rem 0;padding:.75rem 1rem;border:1px solid #6ad4ea;border-radius:4px;background:#243347;color:#e8ecf5;font:inherit;text-decoration:none;cursor:pointer}
+    button{background:#ace4de;color:#102525;font-weight:bold}
+    #status{min-height:1.6em;color:#9aa3c0}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Moon Base Trade-Offs</h1>
+    <p>Download the game as a standalone HTML file and open it in a modern web browser.</p>
+    <button id="download" type="button">Download game (.html)</button>
+    <p id="status" role="status" aria-live="polite"></p>
+    <p><a href="https://github.com/hudsonruthling/moonbase-game/archive/refs/heads/main.zip">Download the project as ZIP</a></p>
+    <p><a href="https://github.com/hudsonruthling/moonbase-game/blob/main/LUNAR%20OUTPOST%20FINAL%20GAME">View the original game source</a></p>
+  </main>
+  <script>
+    const source = 'https://raw.githubusercontent.com/hudsonruthling/moonbase-game/main/LUNAR%20OUTPOST%20FINAL%20GAME';
+    const button = document.getElementById('download');
+    const status = document.getElementById('status');
+    button.addEventListener('click', async () => {
+      button.disabled = true;
+      status.textContent = 'Preparing your download…';
+      try {
+        const response = await fetch(source);
+        if (!response.ok) throw new Error(`Download failed (${response.status}).`);
+        const html = await response.text();
+        const url = URL.createObjectURL(new Blob([html], { type: 'text/html;charset=utf-8' }));
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'Moon-Base-Trade-Offs.html';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        status.textContent = 'Download started. Open the saved HTML file in your browser.';
+      } catch (error) {
+        status.textContent = `${error.message} You can still download the project ZIP above.`;
+      } finally {
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,5 +1,10 @@
 # Moon Base Trade-Offs
 
-## [NASA JUDGE INSTRUCTIONS](NASA%20JUDGE%20INSTRUCTIONS.md)
+## Download and play
 
-To play, open the **LUNAR OUTPOST FINAL GAME** file, download it, and open it in a web browser. GitHub's preview shows the file's code; it does not run the game.
+- **[Download the game as an HTML file](download.html)** — save `Moon-Base-Trade-Offs.html`, then open it in a web browser.
+- **[Download the repository as a ZIP](https://github.com/hudsonruthling/moonbase-game/archive/refs/heads/main.zip)** — this ZIP contains the project files.
+
+GitHub's preview shows source code; it does not run the game. The HTML download preserves the existing game as-is.
+
+## [NASA JUDGE INSTRUCTIONS](NASA%20JUDGE%20INSTRUCTIONS.md)
