@@ -1,70 +1,66 @@
 # AI use disclosure
 
-**Project:** Moonbase: Every Choice Costs  
+**Project:** Moon Base Trade-Offs (lunar outpost STEM game)  
 **Repository:** [`hudsonruthling/moonbase-game`](https://github.com/hudsonruthling/moonbase-game)  
-**Purpose:** Document AI assistance used in this project and provide a checklist for reviewing applicable NASA Space Apps Challenge terms.  
-**Status:** Prepared November 14, 2026. This is a project disclosure, not legal advice or a substitute for the event's official rules.
+**Game file:** [`index.html`](./index.html)  
+**Purpose:** Record AI assistance and human contributions transparently. This is a project disclosure, not legal advice or a claim that the project meets every event rule.
 
-## AI tools and assistance used
+## AI tools used
 
-Generative AI was used to help build and organize the project. In this repository, the work was assisted using GitHub Copilot and an OpenAI-style assistant in the project chat workflow.
+The project has used more than one AI assistant at different stages:
 
-### What the AI helped with
+1. **Claude (Anthropic), web chat.** The project owner reports using Claude Haiku 5.5 in one conversation to generate the starting version of the pixel-art game. The owner supplied the challenge and NASA research context and requested a top-down, Terraria-style lunar base game for ages 7–12 with resources, shielding, power, and storms. The owner reports asking for keyboard and touch movement, a more detailed outdoor map with collisions, and an interior habitat with bunks, communications, rooms, and a sleep function. Claude generated the single-file HTML/CSS/JavaScript game and the associated “Did you know?” facts and source attribution from the supplied research brief. This model/version and workflow are recorded as reported by the project owner; this document does not independently verify them.
+2. **GitHub Copilot / OpenAI assistant in this repository conversation.** An earlier prototype was drafted before the owner switched to Claude. After the owner supplied the Claude-generated game source in chat, the assistant replaced the repository’s `index.html` with that source and has assisted with repository documentation. The earlier prototype was superseded and is no longer the current game.
 
-- turning the challenge prompt and the supplied lunar outpost research brief into a playable prototype;
-- drafting the initial HTML, CSS, and JavaScript for [`index.html`](./index.html), including layout, mechanics, game logic, and explanatory science notes;
-- formatting the repository documents and preparing separate project notes for continuity across chats;
-- writing a plain-language project overview and AI usage disclosure.
+## Prompt and input record
 
-### Representative prompts used
+The exact Claude prompts were not supplied in the current project conversation. We therefore do **not** present reconstructed prompt text as verbatim prompts. The following is an accurate summary of the task types and user-provided inputs reported by the owner:
 
-The following are representative examples of the kinds of prompts used during development (not a verbatim record of every single prompt, but a faithful summary of the task types):
+| Stage | Prompt/input summary (not a verbatim transcript) | Reported AI contribution |
+|---|---|---|
+| Research and concept | Challenge brief and NASA research brief supplied; requested a game concept teaching lunar-outpost trade-offs for children. | Helped synthesize the material into a game concept and educational facts. |
+| Game design | Requested a top-down, Terraria-style pixel-art Moon base for ages 7–12, with resources, shielding, power, storms, and trade-offs. | Designed the interactive game structure and mechanics. |
+| Initial implementation | Requested a single HTML/CSS/JavaScript file with a canvas map, game logic, and explanatory text. | Generated the starting game implementation and text. |
+| Interaction revisions | Requested keyboard and touch movement, a more detailed outdoor map and collisions, plus an interior habitat with bunks, communications, rooms, and a sleep function. | Added or revised those features in the Claude conversation, according to the owner. |
+| Repository replacement | Supplied the full new HTML source and asked to replace the previous game with it. | The repository assistant committed the supplied source as `index.html`; this was a repository operation, not a claim that this assistant independently generated or tested Claude’s game. |
+| Documentation | Asked for separate AI-use documentation and a project handoff overview. | Repository assistant drafted and updated `AI_USAGE.md` and `PROJECT_OVERVIEW.md`. |
 
-- "Build a browser-based lunar outpost game for kids ages 7–12. Make it educational, fun, and grounded in real NASA concepts. Use resource management and trade-offs like power, oxygen, radiation shielding, science, and communication delay."
-- "Create a single-file HTML/CSS/JS game in a browser-friendly format. Keep it simple enough for kids but accurate enough to teach mission trade-offs."
-- "Design a lunar outpost survival game with a six-day mission. Each day the player chooses an action. Balance power, crew supplies, shelter shielding, and science. Add a clear restart and win/lose state."
-- "Add plain-language explanations for regolith, solar maximum, solar minimum, and communication delay within the game. Explain that the game numbers are simplified and not real NASA data."
-- "Write a project overview file separate from the HTML that explains the project, repository, NASA research context, and how future edits should be handled."
-- "Create an AI usage disclosure document that explains the project, the AI tools involved, the project's limitations, and how it complies with transparency expectations for a NASA challenge."
-- "Add an attribution section in the game with NASA references, and label live vs. archived data clearly."
+For an exact-prompt audit, paste the original prompts from the Claude conversation into this section and label them as verbatim. Until then, these are summaries only.
 
-These prompts were used to generate and refine implementation details, not to replace human decision-making or science validation.
+## Human contributions and review
 
-## What the prototype does and does not do
+According to the project owner, the human contribution included:
 
-- It is a simplified educational game, not a NASA tool, mission-planning system, or validated scientific model.
-- Gameplay quantities, event probabilities, resource effects, and thresholds are illustrative choices for play. They are not NASA measurements, dose estimates, or engineering specifications.
-- NASA-related statements and source references in the game are based on the user-provided research brief and cited NASA material. They should be checked against the original sources before publication or judging.
-- The current prototype does **not** make live requests to NASA DONKI or OSDR, and does not contain a NASA dataset represented as live. The source links are attribution and possible future research directions only.
-- No NASA logo, insignia, or NASA-generated image asset was intentionally added to the prototype.
-- No external generative-AI image, audio, or video assets were used in the submitted HTML prototype.
+- choosing the game concept and setting requirements;
+- supplying the challenge prompt and NASA research brief to inform the game;
+- reviewing and testing the AI-generated output, deciding which features to keep, and selecting the desired final direction;
+- providing the Claude-generated HTML source to this repository conversation and requesting that it replace the earlier game.
 
-## Human review and validation
+The repository assistant has not independently run the current game in a browser or performed a full code, science, or accessibility validation. Human testing is reported by the owner; specific test devices, browsers, and results have not been documented here.
 
-The AI-generated content was reviewed by the project owner and adjusted to match the user's challenge brief and research summary. All game logic and educational statements were checked for clarity and to keep NASA facts separate from simplified gameplay units.
+## Current game limitations and factual transparency
 
-## Terms and attribution review
-
-The project should be checked against the exact terms and challenge-specific rules for the relevant Space Apps year before submission. The official participant terms are published at [NASA Space Apps Challenge Legal / Participant Terms and Conditions](https://www.spaceappschallenge.org/legal/). Read the current terms directly; this disclosure does not quote or interpret them as a definitive legal ruling.
-
-In particular, the team should verify the event's current requirements regarding:
-
-1. disclosure of AI tools or AI-generated work;
-2. submission ownership, permissions, and licenses granted to the organizers;
-3. third-party code, text, data, and asset licenses;
-4. NASA name, insignia, imagery, endorsement, and affiliation claims; and
-5. required source citations and project-submission disclosures.
-
-This repository's disclosure is intended to make AI assistance transparent. It does not imply NASA sponsorship, endorsement, partnership, or approval. NASA names and source links are used to identify references, not to represent the game as an official NASA product.
+- The game is an educational prototype, not a NASA product, mission-planning tool, or validated scientific model.
+- It does not retrieve live NASA data. Storm occurrences are randomized in the game and use different probabilities for the selected solar-cycle setting; they are not DONKI forecasts.
+- The 1972 solar-storm reference is historical/archived context, not live data.
+- Gameplay quantities (resource levels, dose increments and threshold, production rates, power costs, storm chances, mission length, and outcomes) are simplified/invented for play. They must not be presented as NASA engineering values, measured dose estimates, or health guidance.
+- Educational facts and source list were generated from the research brief supplied by the owner and need checking against the original NASA references before public submission.
+- No NASA logo, insignia, or NASA-generated visual asset was intentionally included in the provided HTML. The game loads the “Press Start 2P” font from Google Fonts; it is an external dependency, not an AI-generated asset.
+- The game has not been shown to comply with all NASA Space Apps rules merely by including this disclosure.
 
 ## Suggested submission disclosure
 
-> Generative AI assistance (GitHub Copilot / OpenAI assistant) was used to draft and implement the prototype's HTML, CSS, JavaScript, game text, and project documentation. The project team supplied the challenge brief and research notes and reviewed the resulting code and factual claims. Game values are illustrative and not NASA data. The prototype does not connect to live NASA APIs. NASA sources are credited in the game; NASA does not endorse this project.
+> AI assistance was used in development. The project owner reports using Claude (Anthropic) in a web chat to synthesize the supplied challenge/research material, design the pixel-art lunar-base game, and generate its initial single-file HTML/CSS/JavaScript implementation, explanatory text, and NASA-source attribution. The owner reports requesting keyboard/touch controls, outdoor-map detail and collisions, and an interior habitat with rooms and a sleep function. GitHub Copilot / an OpenAI assistant was used earlier for a superseded prototype and later to assist with repository documentation and commit the owner-supplied Claude game source. The project owner selected the concept, provided the research brief, reviewed/tested the output, and selected the final direction. The current game uses no live NASA feed; storm events are randomized and gameplay values are simplified, not NASA measurements. The AI assistant in this repository has not independently tested the current game. NASA sources are credited in the game; NASA does not endorse this project.
 
-Edit this statement if the project later adds or removes AI tools, data feeds, assets, or substantial human-authored contributions. Review it against the current event rules before submission.
+Adjust this disclosure if more precise records become available or the tools/contributions change. Do not describe the summarized prompt tasks above as exact quotations.
+
+## Review of official terms
+
+Check the current [NASA Space Apps Challenge Legal / Participant Terms and Conditions](https://www.spaceappschallenge.org/legal/) and applicable challenge-year guidance directly before submission. This page is not a legal interpretation. In particular, verify any requirements about AI disclosure, ownership and licenses, third-party materials, NASA naming/imagery/insignia, source attribution, and required submission fields. Do not imply NASA sponsorship, endorsement, partnership, or official status.
 
 ## References
 
 - [NASA Space Apps Challenge — Legal / Participant Terms and Conditions](https://www.spaceappschallenge.org/legal/)
-- [NASA Space Apps Challenge website](https://www.spaceappschallenge.org/)
-- See the in-game attribution section in [`index.html`](./index.html) and research context in [`PROJECT_OVERVIEW.md`](./PROJECT_OVERVIEW.md).
+- [NASA Space Apps Challenge](https://www.spaceappschallenge.org/)
+- Game source notes and attribution: [`index.html`](./index.html)
+- Project handoff: [`PROJECT_OVERVIEW.md`](./PROJECT_OVERVIEW.md)
