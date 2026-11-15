@@ -1,120 +1,91 @@
-# Moonbase: Every Choice Costs — project handoff
+# Moon Base Trade-Offs — project handoff
 
-This is the persistent handoff document for continuing work on the game in a new chat. It records the user's goals, repository state, current implementation, known limitations, AI disclosure, prior decisions, and instructions for future edits. A new assistant should read this file before changing the project.
+Read this handoff and inspect the current [`index.html`](./index.html) before continuing in another chat. It summarizes project history and current behavior; the checked-in HTML is authoritative if details differ.
 
-## Quick start for a new chat
+## Quick handoff instructions
 
-1. Open or share this repository and this file: [`PROJECT_OVERVIEW.md`](./PROJECT_OVERVIEW.md).
-2. The playable game is [`index.html`](./index.html). Make requested game changes directly in this existing file; do not make a new downloadable copy unless asked.
-3. The separate AI disclosure is [`AI_USAGE.md`](./AI_USAGE.md). Keep it consistent with actual project work and update it when AI tools or contributions change.
-4. Check the latest versions of the files in the repository before editing. This handoff is a summary, not a substitute for inspecting current code.
-5. The user has asked for persistent repository-based editing so future chats can continue from this project.
+- **Repository:** [`hudsonruthling/moonbase-game`](https://github.com/hudsonruthling/moonbase-game), private, default branch `main`.
+- **Current game:** [`index.html`](./index.html), titled **Moon Base Trade-Offs**.
+- **AI disclosure:** [`AI_USAGE.md`](./AI_USAGE.md).
+- Edit the existing `index.html` for future changes. Keep this overview and AI disclosure separate from the playable HTML, and update them when project details change.
+- No local server or GitHub Pages deployment has been configured. Repository storage is not the same as locally hosting on the user's device or publishing a playable website.
+- The user wants this repository to be the persistent home of the game so later chats can update the same source.
 
-## Repository and hosting status
+## Goal and supplied research
 
-- **Repository:** [`hudsonruthling/moonbase-game`](https://github.com/hudsonruthling/moonbase-game)
-- **Visibility:** Private
-- **Default branch:** `main`
-- **Game:** [`index.html`](./index.html)
-- **Project handoff:** [`PROJECT_OVERVIEW.md`](./PROJECT_OVERVIEW.md)
-- **AI use disclosure:** [`AI_USAGE.md`](./AI_USAGE.md)
-- The user originally asked to save and host the game locally so future edits would not require a new download. The repository is the persistent shared source of truth, but it does not by itself host a page locally on the user's device.
-- **No local web server or GitHub Pages deployment has been configured.** To view the file, the user can open the repository's `index.html` in GitHub or download/open it in a browser. Do not claim it has a stable deployed game URL unless one is actually set up.
-- The user confirmed creation of the private repository and confirmed adding the game plus the separate overview. The user later asked for a separate AI-use page and confirmed its addition, then asked for specific AI prompts and more complete handoff context.
+The user is developing a browser-playable STEM game for ages 7–12 for the NASA Space Apps Challenge. The challenge is to teach authentic lunar (or possibly Martian) outpost trade-offs in a kid-friendly way. The user supplied a detailed “Lunar Outpost Trade-Off Game: Research Brief” (prepared Nov. 14, 2026) and challenge description. Those discuss power and lunar night, radiation and shielding, solar activity, habitats, food/oxygen and possible local resources, communication delay, NASA attribution, and optional DONKI/OSDR data. They caution against inventing dose/shielding figures and say static information must not be represented as live.
 
-## Project goal and challenge context
+## Project history
 
-Build an interactive, browser-friendly STEM game for children ages 7–12 that makes real lunar (or potentially Martian) outpost engineering trade-offs tangible and engaging. The challenge asks players to balance life support, radiation shielding, power, food production, and communications. A meaningful choice should cost another resource, time, or opportunity. Explain technical terms plainly and help a young player learn at least one real constraint of deep-space survival.
+1. The user supplied the challenge and research briefs. An initial six-day, card-based game was drafted in the project conversation and committed as `index.html`.
+2. The private GitHub repository was created at the user's request. The user asked for separate project-handoff and AI-use documents so work can continue across chats.
+3. The user reports switching to Claude (Anthropic) to generate a new starting game: a top-down, Terraria-style pixel-art lunar base. The owner reports using Claude Haiku 5.5 in one web-chat conversation, supplying the challenge and NASA research brief, and asking for resource/shielding/power/storm gameplay, keyboard and touch controls, an expanded outdoor map with collisions, and an interior habitat with bunks, comms, rooms, and a sleep function. These are owner-reported tool/model details; exact Claude prompt transcripts were not supplied here.
+4. The user pasted the full new HTML source and asked to replace the old game. The repository assistant committed the supplied source as the current `index.html`; the earlier card-based prototype was overwritten. The repository assistant has not independently browser-tested the new game.
+5. The user then asked to update this handoff and the AI-use page to reflect the Claude-generated game. Both documents have now been updated accordingly.
 
-The user supplied the challenge statement and a detailed “Lunar Outpost Trade-Off Game: Research Brief” (prepared Nov. 14, 2026). It covers lunar south-pole power and darkness, solar energetic particles (SEPs) and galactic cosmic rays (GCRs), shielding with regolith, solar-cycle differences, environment, habitats and rovers, potential lunar resources, Moon communication delay, NASA source attribution, and cautions against inventing dose/shielding figures. The brief recommends DONKI and OSDR as possible data sources, and clearly labeling embedded information as archived rather than live.
+## Current game summary
 
-## Current HTML game: what is implemented
+`index.html` is a single HTML document with inline CSS and JavaScript. It uses a 320×192 canvas, pixel-art rendering, a retro interface, and the Google-hosted “Press Start 2P” font. It has no build tools or packages; that external font does require network access. The game can be opened as an HTML file in a browser, though browser testing has not been independently recorded.
 
-`index.html` is a standalone HTML document using inline CSS and JavaScript. It needs no build system or package dependencies. The interface is dark, responsive, keyboard-focus styled, and framed as a lunar mission-control game.
+### Mission setup
 
-### Setup
+- Mission is described as four astronauts at the lunar south pole for 12 days.
+- Select **solar maximum** or **solar minimum**. These change the game's random storm probability (32% versus 8% per later day); this is an invented game setting, not a live forecast or a NASA probability.
+- Select **sunny ridge** or **crater rim**. Ridge has more simulated solar power; crater has less solar power but its air-making action produces more air, standing in for nearby ice. This is a simplified gameplay assumption, not a site-specific engineering estimate.
+- Allocate up to six extras between solar panels, a bigger battery, and a shielding kit. Each allocation is limited to 0–3. Initial power capacity is 8 + 6 per battery extra, starting power is full, solar panels are 1 + extra panels, and shield starts at the selected kit count.
+- Setup currently says the player must keep dose under 100 and perform at least five science walks.
 
-- Select a **sunlit ridge** or **shadowed crater**.
-- Select **solar maximum** or **solar minimum**.
-- Site selection only changes the game's simulated sunlight rate (ridge starts at 3 units/day, crater at 1 unit/day before array maintenance). It is not a validated or site-specific NASA power model.
-- Solar maximum uses a 48% random storm-warning chance on non-night days; solar minimum uses 18%. These probabilities are invented gameplay mechanics, not NASA forecast statistics.
-- The mission starts with power 8, supplies 10, shielding 1, risk 0, and science 0. Meters are capped at 12 power, 12 supplies, and 8 shielding.
+### Controls, map, and interface
 
-### Turn loop and actions
+- Pixel-art top-down exterior base and separate interior habitat are rendered on canvas.
+- Move with arrow keys or WASD; use E/space or the on-screen direction pad and Use button. Action buttons also route the crew to a facility and execute the chosen action.
+- Player can use the airlock to change between outside and inside. The interface displays power, air, food, dose, day, crew action points, science, weather banner, and a text/fact log.
+- The layout includes touch controls and a responsive HUD. The canvas has an accessible label; comprehensive accessibility testing has not been done.
 
-- The mission lasts six days; day 4 is always a scripted lunar night with zero solar input.
-- At the start of a turn, the game randomly chooses whether there is a storm warning (except on night) and displays the condition.
-- The player selects one of five actions, then clicks **Use this plan**:
-  1. **Pile on moon dirt:** action power cost 2, action supply cost 1, shielding +2.
-  2. **Grow crew supplies:** action power cost 2, supplies +2 before the daily consumption is applied. Net supplies change is +1 for that turn.
-  3. **Go explore:** action power cost 1, action supply cost 1, science +2, and risk increases by 1 without a storm; with a storm, risk increases by 1 if shielding is at least 3, otherwise by 3.
-  4. **Tune the solar array:** action power cost 2, action supply cost 1, and future sunlight is increased by 1 per completed repair, up to 2 repairs total. Despite the choice-card copy saying “+2,” the code increments future solar by **+1** each time; this discrepancy should be fixed in a future code cleanup or accurately reflected in the card.
-  5. **Stay inside and monitor:** action power cost 1, no science, and a log message. It does not currently directly reduce risk or improve shielding.
-- Every resolved day also charges **2 power** for basic life support and deducts **1 supply** for the crew. Therefore total power cost is 2 + action power cost. Net supply change is daily -1 plus the selected action's supply change.
-- If available power or supplies are insufficient, the mission ends immediately with an explanatory message.
-- Storm warnings affect risk only if the player chooses to explore. Choosing to stay inside does not otherwise alter game risk.
-- Science notes are randomly selected from a small set of educational facts.
-- The end state shows mission success/failure, collected science, and a replay suggestion. A surviving mission with 4 or more science gets a stronger success message.
-- Risk at 8 ends the mission. This meter is explicitly described as illustrative, not a radiation dose or health prediction.
+### Daily actions and costs (as implemented)
 
-### Known implementation details and possible fixes
+There are three crew action points per day. Each listed action consumes one action point and its displayed power amount:
 
-- The action cards are not disabled when unaffordable. The player can select an impossible action and then gets a mission-failure outcome on resolve. Consider showing affordability before a child commits or adding an undo/confirm step.
-- The repair action's card currently says future sunlight “+2” even though code adds +1 per repair. Correct one side so the UI and mechanic agree.
-- The code's “shielding” meter and storm-risk reduction rule are highly simplified. It should not be presented as a dose-vs-thickness relationship; the supplied research brief explicitly says not to invent numerical dose/shielding values.
-- Site labels mention possible crater ice, but no ice resource mechanic is implemented. “Grow crew supplies” is a fictional gameplay abstraction and not a representation of validated crop production or in-situ resource utilization rates.
-- Communications delay is mentioned only in a science note/reference text; it is not currently a gameplay mechanic.
-- The game does not currently distinguish oxygen from food/water in separate meters, despite those being part of the challenge's broad goal.
-- `today` conditions are generated when rendering a turn; they remain fixed for that turn until the player resolves it. Re-rendering a turn would re-roll the event.
-- `reset` starts a fresh game using the current dropdown selections.
-- User-facing result text is inserted via `innerHTML` in `finish`; current result strings are hardcoded, but if future content becomes user-provided, avoid unsafe HTML insertion.
+- **Make air:** 2 power; produces +24 air at crater site or +14 at ridge, capped at 100.
+- **Grow food:** 2 power; produces +12 food, capped at 100.
+- **Moon walk: science:** 1 power; science +1. Adds +4 dose on a quiet day or +28 if a storm is occurring.
+- **Pile moon dirt:** 1 power; shielding +1 up to level 4. A storm later in the day adds dose based on the shield level; dose calculation is simplified.
+- **Call Earth:** 1 power and one action point; moves the player to the habitat comms station, displays a signal-travel delay, then waits 2.6 seconds in real time before revealing the pre-generated next-day storm state (when a next day exists). This is a gameplay timing effect, not an exact real-time communication simulation.
+- **End the day / sleep:** after actions are finished or voluntarily, daily resource costs and events resolve. Each day adds background dose (+2 at solar max, +4 at solar min). A storm adds shield-adjusted dose and drains 2 power. The outpost then uses 3 power, 10 air, and 8 food. If power falls below zero, it is set to zero and air loses another 12. A lunar night is scripted every fourth day; it has no solar generation.
+- Solar generation on non-night days is `floor(panels * 5 * siteMultiplier)`, with multiplier 1 at ridge and 0.6 at crater, capped by battery capacity.
+- Storm states for days 2–13 are randomly pre-generated at mission start using the selected solar setting.
+- Ending conditions include air exhaustion, food exhaustion, dose reaching 100, or finishing 12 days. Completion is labeled mission success only if at least five science walks are completed.
 
-## NASA facts, data, and attribution
+All these values, probabilities, rates, thresholds, resource conversions, and outcomes are simplified and invented for play. They are not validated NASA measurements, dose estimates, clinical advice, engineering specifications, or mission-planning limits.
 
-The game contains an in-game “What is based on NASA information?” disclosure, several science notes, and links/references. It explicitly says game quantities are simplified and that DONKI and OSDR are not connected. Current referenced sources include:
+## Science content and data status
 
-- NASA, “Living and Working on the Moon.”
-- NASA, “Moon Base.”
-- NASA, “Lunar Living: NASA’s Artemis Base Camp Concept” (2020).
-- NASA, “How NASA Will Protect Astronauts From Space Radiation at the Moon.”
-- K. Ryder and M. Campola, “The Lunar Radiation Environment” (NASA GSFC, 2022; NTRS 20220007070).
-- NASA DONKI API and NASA Open Science Data Repository (OSDR), linked as potential sources, not implemented feeds.
+The game provides short “Did you know?” facts concerning lunar darkness and power storage, regolith shielding, solar storms, space-weather officers, the August 1972 solar storms, Shackleton crater/ice, Moon signal delay, cosmic rays, temperatures, potential local resources, solar cycle, dose, and impacts. A source list appears in a details section in the game.
 
-The user-provided brief includes additional facts that may support future carefully sourced improvements: early systems may need to store power for up to eight days; a planned fission surface power unit is 10 kW; south-pole temperature extremes; regolith shelter shielding; the solar maximum/minimum trade-off; approximately 240,000 miles to the Moon and a calculated ~1.3-second one-way light travel time; possible water ice; and recent crater findings. Verify each claim and its current wording against original sources before incorporating it. Do not use future-dated/current-event details without verifying their existence and publication dates.
+- **No live NASA API or dataset is connected.** DONKI and OSDR are not queried. Storm days are random. The historical 1972 event is an archived fact, not current data.
+- The source list currently contains plain-text citations rather than direct links for all listed works. Verify titles, dates, claims, and citations against primary sources before submission; research-brief citations should not be assumed independently verified.
+- Communication delay is described in the game as an approximately 1.3-second one-way light-speed calculation from an approximate 240,000-mile distance, not a quoted NASA figure.
+- NASA facts should be distinguished from made-up game values. Avoid introducing dose/shielding numbers not supported by a checked source; the supplied brief says exact values were not extracted from the cited charts.
+- Do not claim NASA endorsement, partnership, or official status. The submitted HTML has no NASA logo/insignia or NASA imagery.
 
-**Data status:** No live API call, DONKI event, OSDR data, or downloaded NASA dataset is implemented. Never describe the game as live-data-powered until actual retrieval, display, error handling, date labeling, and attribution are implemented. If adding a static/archived record, label its date and archived status in the UI.
+## AI-use record
 
-## AI use disclosure and prior AI-related work
+See [`AI_USAGE.md`](./AI_USAGE.md) for the disclosure. Summary:
 
-[`AI_USAGE.md`](./AI_USAGE.md) is a separate repository file created after the user requested a separate AI-use documentation area. It documents AI-assisted prototype generation, representative prompt examples, project limitations, suggested submission disclosure, and a link to the NASA Space Apps legal/terms page.
+- The owner reports using Claude (Anthropic) in one web conversation, model/version reported as Claude Haiku 5.5, to synthesize the supplied challenge/research material, design the pixel-art game, and generate the starting HTML/CSS/JavaScript, game text, and attribution. They report requesting keyboard/touch controls, more detailed exterior/collisions, and an interior with bunks/comms/rooms/sleep.
+- Exact Claude prompts are not in the current conversation and must not be fabricated or presented as verbatim. The AI-use file includes honest task summaries only.
+- GitHub Copilot / an OpenAI assistant was used for the superseded earlier prototype and repository documentation; the project assistant also committed the user-provided Claude HTML source to replace the earlier game.
+- The owner reports selecting the concept and requirements, supplying the challenge/research brief, reviewing/testing the output, and selecting retained features. The repository assistant has not independently run or tested the current game.
 
-The disclosure currently says generative AI (GitHub Copilot / OpenAI assistant) helped draft the prototype's HTML/CSS/JavaScript, game text, and repository documents. It labels the examples as representative prompt summaries, **not verbatim complete chat transcripts**. This distinction matters: do not claim reconstructed prompt examples are exact quotations. If precise prompts are required for an application or audit, use actual chat history where available and clearly distinguish exact excerpts from summaries.
+## Known validation and follow-up items
 
-Before submission, check the current official [NASA Space Apps Challenge Legal / Participant Terms and Conditions](https://www.spaceappschallenge.org/legal/) directly. Do not treat generated summaries as authoritative legal interpretation. The project must not claim NASA endorsement, partnership, or official status. The prototype intentionally has no NASA logo/insignia or NASA-generated visual assets. Review third-party code/assets and event-specific disclosure/ownership requirements before public submission.
+- The new game has not been independently tested in a browser by the repository assistant. Before public use, test launch/setup, each action and resource cost, storm/night transitions, scene movement/collisions, Earth forecast delay, end conditions, restart, keyboard, touch, and small-screen behavior.
+- Verify game logic and UI labels against code after any change. Treat all gameplay numbers and dose values as fictional game units; the current UI needs to make that limitation conspicuous enough for young players.
+- The current science notes say lunar dirt can grow crops and make oxygen, and crater ice can be melted into air. Keep these framed as potential technologies or simplified game mechanics, not established yields or operational capabilities.
+- Consider adding direct links and publication dates to each source; verify 2026-dated references against original NASA pages before relying on them.
+- Review the official [NASA Space Apps Challenge Legal / Participant Terms and Conditions](https://www.spaceappschallenge.org/legal/) and event-specific rules directly before submission. `AI_USAGE.md` is a transparency record, not legal advice or a guarantee of compliance.
+- If enabling GitHub Pages, consider that the repo is private and confirm the desired access and availability first. No hosted URL is currently configured.
 
-## Design and development guardrails
+## Suggested new-chat handoff prompt
 
-1. Update the existing `index.html` in the repo for future game edits; keep `PROJECT_OVERVIEW.md` and `AI_USAGE.md` separate from the HTML.
-2. Update this overview when meaningful implementation details, project decisions, files, hosting, data integrations, or AI tooling change.
-3. Keep all UI language suitable for ages 7–12 and explain jargon in context.
-4. Distinguish NASA-cited factual background from game assumptions. Mark invented game units and probabilities as illustrative.
-5. Do not fabricate dose, shielding, food production, power, or health figures; use source-verified figures with scope and units if adding real data.
-6. Make costs and consequences visible before decisions, and ensure the interface matches the implemented mechanics.
-7. Consider adding stronger accessibility (screen-reader updates, reduced-motion support, contrast review) and testing on mobile/small screens.
-8. Avoid implying NASA built, approved, or endorses the prototype.
-9. Keep the static HTML usable without account/API key. If implementing NASA API calls, protect credentials (never embed a private API key), handle rate limits/network errors, disclose data dates, and provide a clear fallback.
-
-## Conversation and project history so far
-
-- User provided the challenge prompt and extensive lunar outpost research brief.
-- An initial single-file browser game was drafted in chat.
-- User asked for a persistent place to save and edit the same script. A private repo was created after user confirmation.
-- User requested a separate overview document for cross-chat handoff, and confirmed adding it after `index.html` was saved.
-- `index.html` and the initial `PROJECT_OVERVIEW.md` were committed together to the repository.
-- User requested a separate documentation area for AI use under NASA terms. Research was done on the official legal page, and a separate `AI_USAGE.md` was added after confirmation.
-- User then requested specific prompts/information on the AI-use page. Representative prompt examples and more detailed AI-use disclosure were added to `AI_USAGE.md`.
-- User's latest request is to make this overview sufficiently complete that a new chat can continue the HTML game with full context. This version expands the handoff, records current code mechanics and known inconsistencies, and links the companion documents.
-
-## Suggested first message in a new chat
-
-> Please read `PROJECT_OVERVIEW.md`, `AI_USAGE.md`, and the current `index.html` in `hudsonruthling/moonbase-game` before making changes. This is the handoff for the Moonbase: Every Choice Costs STEM game. Continue by editing the existing `index.html` in the repository, preserve the distinction between NASA facts and illustrative mechanics, and update the overview if behavior or project status changes. My requested change is: [describe the change].
+> Read `PROJECT_OVERVIEW.md`, `AI_USAGE.md`, and the current `index.html` in `hudsonruthling/moonbase-game`. The current game is the Claude-generated pixel-art “Moon Base Trade-Offs” game, replacing the earlier six-day card prototype. Continue by editing the existing `index.html` and keep the overview and AI disclosure accurate. Treat all gameplay quantities and randomized storm events as illustrative, not NASA data; no live NASA API is implemented. Do not invent verbatim Claude prompts. My requested change is: [describe the change].
