@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10131f">
+  <title>Research | Moon Base Trade-Offs</title>
+  <style>
+    :root{color-scheme:dark;--bg:#10131f;--panel:#1b2033;--line:#363d5c;--ink:#e8ecf5;--dim:#aeb8d2;--hot:#f2a23a;--ice:#6ad4ea;--green:#6fd08c}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}
+    main{width:min(1040px,100%);margin:auto;padding:24px clamp(16px,4vw,40px) 48px}header{margin-bottom:24px}
+    h1,h2,h3{line-height:1.2}h1{font-size:clamp(1.7rem,4vw,2.5rem);margin:.5em 0}h2{font-size:1.25rem;margin:0 0 8px}p{margin:.5em 0;color:var(--dim)}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin:22px 0 24px;padding-bottom:10px}
+    .tabs a{display:inline-block;padding:9px 14px;border:1px solid var(--line);border-radius:8px;color:var(--dim);text-decoration:none;font-weight:700}
+    .tabs a[aria-current=page]{background:#29314a;color:var(--ink);border-color:var(--ice)}
+    .intro,.note{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:16px 0 22px}
+    .intro{border-left:4px solid var(--ice)}.note{border-left:4px solid var(--hot);font-size:.94rem}
+    .filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:20px 0}.filters label{font-weight:700}
+    input,select{font:inherit;color:var(--ink);background:#151a2a;border:1px solid var(--line);border-radius:8px;padding:10px 12px}input{flex:1;min-width:220px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+    article{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;display:flex;flex-direction:column;min-height:210px}
+    .tag{font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ice);font-weight:800;margin-bottom:8px}
+    article p{flex:1}article a{color:var(--ice);font-weight:700;text-decoration-thickness:1px;text-underline-offset:3px}article a:hover{color:#fff}
+    .count{color:var(--dim);font-size:.9rem}.empty{display:none;padding:20px;color:var(--dim)}footer{margin-top:30px;border-top:1px solid var(--line);padding-top:16px;color:var(--dim);font-size:.9rem}
+    :focus-visible{outline:3px solid var(--hot);outline-offset:3px}
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <p>MOON BASE TRADE-OFFS · FIELD NOTES</p>
+    <h1>Research library</h1>
+    <p>NASA resources about living and working on the Moon, surface habitats, space radiation, and life-support systems.</p>
+    <nav class="tabs" aria-label="Game sections">
+      <a href="index.html">Game</a>
+      <a href="research.html" aria-current="page">Research</a>
+    </nav>
+  </header>
+  <section class="intro" aria-labelledby="about-title">
+    <h2 id="about-title">Why these sources?</h2>
+    <p>Use these primary-source links to explore the real engineering and science behind lunar surface missions. The short descriptions below are orientation notes, not detailed technical summaries; follow each source for its full context, assumptions, and findings.</p>
+  </section>
+  <div class="filters">
+    <label for="search">Find a topic</label>
+    <input id="search" type="search" placeholder="Try: habitat, radiation, crater…" autocomplete="off">
+    <label for="topic">Filter</label>
+    <select id="topic"><option value="all">All topics</option><option value="surface">Living on the Moon</option><option value="habitat">Habitats &amp; base camp</option><option value="radiation">Radiation &amp; environment</option><option value="systems">Life support &amp; engineering</option></select>
+    <span class="count" id="count" aria-live="polite"></span>
+  </div>
+  <section class="grid" id="sources" aria-label="NASA research sources">
+    <article data-topic="systems" data-search="bvad biomedical behavioral risks deep space exploration human health">
+      <div class="tag">Research report · Human health</div><h2>Biomedical risks of deep space exploration</h2>
+      <p>NASA technical report discussing biomedical and behavioral risks relevant to missions beyond low Earth orbit. Useful background for considering crew health as part of mission planning.</p>
+      <a href="https://ntrs.nasa.gov/api/citations/20210024855/downloads/BVAD_2.15.22-final.pdf" target="_blank" rel="noopener noreferrer">Open NASA technical report (PDF) ↗</a>
+    </article>
+    <article data-topic="habitat" data-search="Kaitlyn Ryder 2022 LaRC presentation lunar surface habitat">
+      <div class="tag">Presentation · Habitat concepts</div><h2>LaRC presentation (2022)</h2>
+      <p>A NASA Langley Research Center presentation supplied for this project. Open the slide deck for its specific concepts, illustrations, and technical context.</p>
+      <a href="https://ntrs.nasa.gov/api/citations/20220007070/downloads/20220007070-Kaitlyn-Ryder-2022-LaRC-Presentation_v2.pdf" target="_blank" rel="noopener noreferrer">Open NASA presentation (PDF) ↗</a>
+    </article>
+    <article data-topic="surface" data-search="living working moon astronauts exploration">
+      <div class="tag">NASA feature · Surface operations</div><h2>Living and working on the Moon</h2>
+      <p>An overview of NASA’s plans and considerations for astronauts living and working on the lunar surface.</p>
+      <a href="https://www.nasa.gov/feature/living-and-working-on-the-moon/" target="_blank" rel="noopener noreferrer">Read the NASA feature ↗</a>
+    </article>
+    <article data-topic="surface" data-search="lunar orbiter new once century moon crater impact">
+      <div class="tag">NASA science · Lunar surface</div><h2>Orbiter spots a new Moon crater</h2>
+      <p>NASA Science report on a newly observed lunar crater. A reminder that the lunar surface is an active environment for mission planning and science.</p>
+      <a href="https://science.nasa.gov/solar-system/moon/nasas-moon-orbiter-spots-new-once-in-century-moon-crater/" target="_blank" rel="noopener noreferrer">Read the NASA Science article ↗</a>
+    </article>
+    <article data-topic="habitat" data-search="artemis base camp concept lunar living habitat mobility">
+      <div class="tag">NASA mission concept · Base camp</div><h2>Artemis Base Camp concept</h2>
+      <p>NASA’s concept for a sustainable presence at the lunar South Pole, including the idea of a base camp to support surface exploration.</p>
+      <a href="https://www.nasa.gov/blogs/missions/2020/10/28/lunar-living-nasas-artemis-base-camp-concept/" target="_blank" rel="noopener noreferrer">Read the NASA article ↗</a>
+    </article>
+    <article data-topic="habitat" data-search="moonbase about lunar habitat nasa reference">
+      <div class="tag">NASA reference · Moonbase</div><h2>About Moonbase</h2>
+      <p>NASA reference page introducing the Moonbase topic. Follow the page for its description and related resources.</p>
+      <a href="https://www.nasa.gov/reference/moonbase-about/" target="_blank" rel="noopener noreferrer">Read the NASA reference ↗</a>
+    </article>
+    <article data-topic="radiation" data-search="space radiation protect astronauts moon solar energetic particles shielding">
+      <div class="tag">NASA science · Space radiation</div><h2>Protecting astronauts from space radiation</h2>
+      <p>Explains the radiation-protection challenge for astronauts at the Moon and how NASA studies this hazard.</p>
+      <a href="https://science.nasa.gov/science-research/heliophysics/how-nasa-will-protect-astronauts-from-space-radiation-at-the-moon/" target="_blank" rel="noopener noreferrer">Read the NASA Science article ↗</a>
+    </article>
+    <article data-topic="habitat" data-search="common habitat basecamp moon mars surface operations">
+      <div class="tag">Technical paper · Habitat design</div><h2>A common habitat for Moon and Mars operations</h2>
+      <p>NASA technical paper on a common habitat concept for surface operations on the Moon and Mars. Consult the paper for design details and assumptions.</p>
+      <a href="https://ntrs.nasa.gov/api/citations/20210020956/downloads/A%20Common%20Habitat%20Basecamp%20for%20Moon%20and%20Mars%20Surface%20Operations.pdf" target="_blank" rel="noopener noreferrer">Open NASA technical paper (PDF) ↗</a>
+    </article>
+    <article data-topic="systems" data-search="nasa technical report 1993 ntrs citation 19930004806">
+      <div class="tag">NASA technical report · NTRS</div><h2>NASA Technical Reports Server record</h2>
+      <p>Legacy NASA technical report record provided with the research list. Open the catalog entry to see its verified title, abstract, and available files.</p>
+      <a href="https://ntrs.nasa.gov/citations/19930004806?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">View the NASA NTRS record ↗</a>
+    </article>
+    <article data-topic="systems" data-search="ECLSS environmental control life support systems technical brief OCHMO">
+      <div class="tag">Technical brief · Life support</div><h2>Environmental control and life support systems</h2>
+      <p>NASA technical brief on ECLSS, the systems that support a habitable spacecraft environment. Read the brief for the scope and technical specifics.</p>
+      <a href="https://www.nasa.gov/wp-content/uploads/2023/07/eclss-technical-brief-ochmo.pdf?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">Open NASA technical brief (PDF) ↗</a>
+    </article>
+  </section>
+  <p class="empty" id="empty">No sources match those filters. Try another topic or search term.</p>
+  <aside class="note"><strong>Game note:</strong> The game’s resource values, radiation dose, probabilities, and outcomes are simplified fictional mechanics—not NASA measurements, mission predictions, or medical guidance. NASA sources inform the themes; they do not validate the gameplay numbers or imply NASA endorsement.</aside>
+  <footer>Source descriptions are brief navigation aids. NASA pages and NTRS records may be updated; consult the linked originals for authoritative details and publication information.</footer>
+</main>
+<script>
+  const search = document.getElementById('search');
+  const topic = document.getElementById('topic');
+  const cards = [...document.querySelectorAll('#sources article')];
+  const count = document.getElementById('count');
+  const empty = document.getElementById('empty');
+  function filterSources() {
+    const query = search.value.trim().toLowerCase();
+    let visible = 0;
+    for (const card of cards) {
+      const matchesTopic = topic.value === 'all' || card.dataset.topic === topic.value;
+      const matchesQuery = !query || (card.dataset.search + ' ' + card.innerText).toLowerCase().includes(query);
+      card.hidden = !(matchesTopic && matchesQuery);
+      if (!card.hidden) visible++;
+    }
+    count.textContent = `${visible} of ${cards.length} sources`;
+    empty.style.display = visible ? 'none' : 'block';
+  }
+  search.addEventListener('input', filterSources);
+  topic.addEventListener('change', filterSources);
+  filterSources();
+</script>
+</body>
+</html>
